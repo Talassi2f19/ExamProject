@@ -7,10 +7,9 @@ $password = $connessione->real_escape_string($_POST['password']);
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 $sql = "INSERT INTO utenti (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
-if($connessione->query($sql) === true){
-    echo "Registrazione effettuata con successo";
-}else{
+if($connessione->query($sql) === true)
+    header("location: ../login.html");
+else
     echo "Errore durante registrazione utente $sql. " . $connessione->error;
-}
 
 ?>
