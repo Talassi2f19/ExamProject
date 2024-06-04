@@ -1,0 +1,28 @@
+<section id="login">
+    <!--
+    <header>
+        <h1>Green <br />Innovation</h1>
+    </header>
+    -->
+    <div id="form_container">
+        <form [formGroup]="registrationform" (ngSubmit)="onSubmit()">
+            <h1>Registration</h1>
+            <div class="container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="email">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+                <button mat-stroked-button color="primary" type="submit" class="bg-blue" [disabled]="!registrationform.valid">Registration</button>
+            </div>
+            <button mat-stroked-button class="button bg-green" routerLink="/login">Have an account?</button>
+        </form>
+    </div>
+</section>

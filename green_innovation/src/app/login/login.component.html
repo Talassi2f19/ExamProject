@@ -1,0 +1,25 @@
+<section id="login">
+    <!--
+    <header>
+        <h1>Green <br />Innovation</h1>
+    </header>
+    -->
+    <div id="form_container">
+        <form [formGroup]="loginform" (ngSubmit)="onSubmit()">
+            <h1>Sign-in</h1>
+            <div class="container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+                <button mat-stroked-button color="primary" type="submit" class="bg-blue" [disabled]="!loginform.valid">Login</button>
+                <a href="#" class="forgot">Forgot password?</a>
+            </div>
+            <button mat-stroked-button class="button bg-green" routerLink="/registration">Create a new account</button>
+        </form>
+    </div>
+</section>
