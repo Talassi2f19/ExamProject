@@ -13,6 +13,9 @@ import { MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -26,8 +29,11 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatCardModule,
     MatChipsModule,
     FormsModule,
+    MatMenuModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatDividerModule,
+    MatGridListModule,
     MatBadgeModule
   ],
   exports: [
@@ -40,8 +46,11 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatCardModule,
     FormsModule,
     MatTooltipModule,
+    MatGridListModule,
+    MatDividerModule,
     MatToolbarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule { }

@@ -8,11 +8,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MaterialModule } from './material.module';
 import { LoginModule } from './login/login.module';
 import { RegistrationModule } from './registration/registration.module';
+import { HomeModule } from './home/home.module';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -21,6 +22,7 @@ import { RegistrationModule } from './registration/registration.module';
     MaterialModule,
     ReactiveFormsModule,
     LoginModule,
+    HomeModule,
     RegistrationModule,
   ],
   providers: [
