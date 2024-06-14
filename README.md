@@ -1,4 +1,4 @@
-# Progetto di Esame: Applicazione Angular per Eventi sulla Sostenibilità
+# Progetto di Esame
 
 Questo progetto mira a creare un’applicazione web in Angular in cui gli utenti possono registrarsi e visualizzare eventi sulla sostenibilità. Lo scopo principale di tale progetto è quello di educare le persone sull’importanza dell’argomento sostenibilità.
 
