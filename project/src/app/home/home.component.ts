@@ -3,6 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { Observable } from 'rxjs';
 import { User } from '@angular/fire/auth';
+import { environment } from '../../../environments/environments';
+import { collection, doc, getDocs, getFirestore, onSnapshot } from '@angular/fire/firestore';
+import { initializeApp } from '@angular/fire/app';
+import { Feed } from '../model/feed.model';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +16,7 @@ import { User } from '@angular/fire/auth';
 export class HomeComponent implements OnInit {
   tweetform: FormGroup;
   user$: Observable<User | null>;
+  feed: any[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -21,11 +26,32 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const app = initializeApp(environment.firebase);
+    const db = getFirestore(app);
+
+    const notesCollection = collection(db, "greeninnovation");
+
     this.tweetform = new FormGroup({
-      username: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      text: new FormControl(null, Validators.required),
     })
-    console.log(this.loginService);
+    
+    // Sottoscrizione agli aggiornamenti in tempo reale della collezione "greeninnovation"
+    onSnapshot(notesCollection, (snapshot) => {
+      console.log(this.loginService.currentUser?.uid);
+      snapshot.docChanges().forEach(() => {
+        this.feed = []; // Pulisce l'array prima di riempirlo con i nuovi dati
+        snapshot.forEach((doc) => {
+          let tmp = {
+            id: doc.id,
+            ...doc.data()
+          }
+          this.feed.push(tmp); // Aggiunge i dati del documento all'array
+        });
+      });
+      console.log(this.feed);
+    }, (error) => {
+      console.error("Errore durante il recupero degli aggiornamenti:", error);
+    });
   }
 
   onSubmit() {
@@ -35,4 +61,12 @@ export class HomeComponent implements OnInit {
   logout(){
     this.loginService.logout();
   }
+
+  async sendMessage() {
+    const nota : Feed = {
+      text: 'hello world'
+    }
+    await this.loginService.addMessage(nota);
+  }
 }
+

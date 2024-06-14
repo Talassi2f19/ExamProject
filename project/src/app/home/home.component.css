@@ -22,6 +22,7 @@ ul li a{
 }
 
 #content{
+    margin-top: 1rem;
     min-height: 90vh;
     height: auto;
     display: flex;
@@ -30,7 +31,7 @@ ul li a{
 
 #content_card{
     flex-grow: 3;
-    padding-left: 5vw;
+    padding: 0 6vw;
 }
 #content_news{
     flex-grow: 2;
@@ -47,3 +48,6 @@ ul li a{
     font-weight: bold;
 }
 
+.container>mat-form-field{
+    border: none!important;
+}

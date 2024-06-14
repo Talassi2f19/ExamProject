@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, GoogleAuthProvider, user, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Utente } from '../model/user.model';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../login/dialog/dialog.component';
+import { Feed } from '../model/feed.model';
+import { DocumentData, DocumentReference, Firestore, addDoc, collection, serverTimestamp } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -58,18 +58,18 @@ export class LoginService {
     })
     .catch((error) => {
       console.warn(error);
-      this.openSnackbar('Account non esistente: registrazione effettuata con successo');
-      this.openDialog(email, password);
-      //this.signUpDefault(email, password);
+      this.openDialog(email, password)
     })
   }
 
-  openDialog(email: string, password: string) {
+  private openDialog(email: string, password: string) {
     const dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result === true)
+      if(result === true){
         this.signUpDefault(email, password);
+        this.openSnackbar('Account non esistente: registrazione effettuata con successo');
+      }
     });
   }
 
@@ -95,5 +95,28 @@ export class LoginService {
       this.openSnackbar('Errore nell\'effettuare la disconessione ');
     })
   }
-  
+
+
+  /* MESSAGING */
+  // Adds a text to Cloud Firestore.
+  addMessage = async (feed: Feed): Promise<void | DocumentReference<DocumentData>> => {
+    console.log(this.currentUser);
+    let data: any;
+    try {
+      if (this.currentUser) {
+        data = await addDoc(collection(this.firestore, 'greeninnovation'), {
+          text: feed.text,
+          timestamp: serverTimestamp(),
+          uid: this.currentUser.uid
+        });
+        console.log(data);
+        return data;
+      } else {
+        throw new Error('User is not logged in or note data is incomplete');
+      }
+    } catch (error) {
+      console.warn('Error writing new message to Firebase Database', error);
+      return;
+    }
+  }
 }
