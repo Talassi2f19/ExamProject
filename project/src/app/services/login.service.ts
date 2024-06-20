@@ -105,6 +105,8 @@ export class LoginService {
     try {
       if (this.currentUser) {
         data = await addDoc(collection(this.firestore, 'greeninnovation'), {
+          username: this.currentUser.email?.substring(0, this.currentUser.email.search("@")),
+          email: this.currentUser.email,
           text: feed.text,
           timestamp: serverTimestamp(),
           uid: this.currentUser.uid
@@ -117,6 +119,7 @@ export class LoginService {
     } catch (error) {
       console.warn('Error writing new message to Firebase Database', error);
       return;
+      
     }
   }
 }

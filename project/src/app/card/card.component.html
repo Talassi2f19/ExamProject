@@ -1,11 +1,10 @@
 <mat-card class="example-card">
     <mat-card-header>
-      <mat-card-subtitle>unknown&#64;gmail.com</mat-card-subtitle>
+      <!-- prendo la denominazione della mail senza il dominio e stampo l'ora di creazione del feed -->
+      <mat-card-subtitle>{{ "@" + user }} | {{ time }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-        from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-        originally bred for hunting.</p>
+      <p>{{ data.text }}</p>
     </mat-card-content>
   </mat-card>
   

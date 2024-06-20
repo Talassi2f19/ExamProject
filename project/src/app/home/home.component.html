@@ -30,22 +30,28 @@
   
 <section id="content">
     <div id="content_card">
-        
         <form [formGroup]="tweetform" (ngSubmit)="onSubmit()">
             <div class="container">
                 <mat-form-field appearance="outline">
                     <mat-label>What's happening</mat-label>
-                    <textarea matInput formControlName="text"></textarea>
+                    <textarea matInput
+                      formControlName="text"
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="10">
+                    </textarea>
                 </mat-form-field>
             </div>
             <button mat-stroked-button color="primary" type="submit" class="bg-blue" (click)="sendMessage()">Tweet</button>
         </form>
-
-        <app-card></app-card>   
+        <ng-container *ngFor="let card of feed">
+          <app-card [data]="card" [user]="card.username" [time]="getTimeDifference(card.timestamp)"></app-card>
+        </ng-container>
     </div>
     <div id="content_news">
         <article id="content_news_article">
-            <h3>What's happening</h3>
+            <h3>New Events</h3>
             <mat-divider></mat-divider>
             <p><strong>Article</strong></p>
         </article>
